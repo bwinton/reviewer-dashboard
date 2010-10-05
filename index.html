@@ -189,7 +189,26 @@ function makeRenderer(query, info) {
       default:
         pending = result.reviewsPending + " reviews pending";
     }
+    query.attr("pending", result.reviewsPending);
     query.find(".pending").text(pending);
+    // Insert into the proper place in the document.
+    query.remove();
+    if (! $("#sorted .entry").length) {
+      query.appendTo($("#sorted"));
+    }
+    else {
+      var bigger = $("#sorted .entry").filter(function(index) {
+        if ($(this).attr("pending") != result.reviewsPending)
+          return $(this).attr("pending") > result.reviewsPending;
+        else
+          return $(this).find(".name").text().toLocaleLowerCase() <
+                 query.find(".name").text().toLocaleLowerCase();
+      });
+      if (bigger.length)
+        query.insertAfter(bigger.last());
+      else
+        query.insertBefore($("#sorted .entry").first());
+    }
   }
 }
 
@@ -210,7 +229,6 @@ $(window).ready(function() {
       twitterLink.append(twitterPortrait);
       entry.find(".portrait").append(twitterLink);
     }
-    // Insert into the proper place in the document.
     $(document.body).append(entry);
 
     var renderer = makeRenderer(entry, info);
@@ -266,6 +284,7 @@ function makeBarChart(data, id, info) {
 }
 </script>
 <h1>Thunderbird Reviewer Dashboard</h1>
+<div id="sorted"></div>
 <div id="templates">
   <div class="entry">
     <div class="portrait"></div>
