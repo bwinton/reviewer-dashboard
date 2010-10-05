@@ -109,6 +109,16 @@ var REVIEWERS = [
     name: "bwinton",
     twitter: "bwinton",
     email: "bwinton@latte.ca"
+  },
+  {
+    name: "clarkbw",
+    twitter: "clarkbw",
+    email: "clarkbw@gnome.org"
+  },
+  {
+    name: "andreasn",
+    twitter: null,
+    email: "nisses.mail@home.se"
   }
 ];
 
@@ -200,6 +210,7 @@ $(window).ready(function() {
       twitterLink.append(twitterPortrait);
       entry.find(".portrait").append(twitterLink);
     }
+    // Insert into the proper place in the document.
     $(document.body).append(entry);
 
     var renderer = makeRenderer(entry, info);
@@ -254,9 +265,6 @@ function makeBarChart(data, id, info) {
   vis.render();
 }
 </script>
-<a href="http://github.com/toolness/reviewer-dashboard"><img
-  style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"
-  alt="Fork me on GitHub" /></a>
 <h1>Thunderbird Reviewer Dashboard</h1>
 <div id="templates">
   <div class="entry">
