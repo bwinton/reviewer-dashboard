@@ -61,6 +61,7 @@ a.dashboard:hover {
 <script src="js/jquery.tipsy.js"></script>
 <script src="js/bugzilla.js"></script>
 <script src="js/date-utils.js"></script>
+<script src="js/md5.js"></script>
 <script>
 var REVIEWERS = [
   {
@@ -229,21 +230,20 @@ $(window).ready(function() {
     dashboard.attr("href", dashboard.attr("href") + info.email);
     if (info.twitter) {
       var twitterURL = "http://twitter.com/" + info.twitter;
-      var twitterLink = $("<a></a>").attr("href", twitterURL);
-      twitterLink.attr("target", "twitter");
+      var twitter = $("<a></a>").attr("href", twitterURL);
+      twitter.attr("target", "twitter");
       var twitterPortrait = new Image();
       twitterPortrait.src = "http://img.tweetimag.es/i/" +
                             info.twitter + "_b";
-      twitterLink.append(twitterPortrait);
-      entry.find(".portrait").append(twitterLink);
+      twitter.append(twitterPortrait);
     } else {
-      var twitterURL = "http://twitter.com/" + info.twitter;
-      var twitterPortrait = new Image();
-      var twitterLink = $("<a></a>").attr("href", twitterURL);
-      twitterPortrait.src = "http://avnerd.tv/sharedFiles/Images/murray.jpg";
-      twitterLink.append(twitterPortrait);
-      entry.find(".portrait").append(twitterLink);
+      var twitter = new Image();
+      twitter.src = "http://www.gravatar.com/avatar/" + md5(info.email) +
+                    "?d=wavatar";
+      twitter.width = 72;
+      twitter.height = 72;
     }
+    entry.find(".portrait").append(twitter);
 
     $(document.body).append(entry);
 
